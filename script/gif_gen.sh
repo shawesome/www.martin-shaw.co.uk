@@ -13,7 +13,11 @@ function gif_gen {
     cd $here
 }
 
-gif_gen ../images/link/blue/walk-down/ 30 30    #0      90      300     30
+gif_gen ../images/link/blue/walk-down/ 30 30    #90     0       300     30
 gif_gen ../images/link/blue/walk-up/ 30 30      #90     777     300     30
-gif_gen ../images/link/blue/walk-left/ 30 30    #88    1527    270     30
+gif_gen ../images/link/blue/walk-left/ 30 30    #88     1527    270     30
+
+gif_gen ../images/link/red/walk-down/ 30 30    #90     0       300     30
+gif_gen ../images/link/red/walk-up/ 30 30      #90     777     300     30
+gif_gen ../images/link/red/walk-left/ 30 30    #88     1527    270     30
 

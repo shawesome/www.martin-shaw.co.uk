@@ -5,16 +5,17 @@ import sys
 import os
 import random
 
-HIGHEST_TILE_NO = 8 
 
-if len(sys.argv) < 3:
-    print "Expecting 2 arguments. The number of ROWS and the number of COLUMNS."
+if len(sys.argv) < 4:
+    print "Expecting 3 arguments. The number of ROWS, the number of COLUMNS. And the number of TILES"
     sys.exit()
 
 #TODO type checking
 rows = int(sys.argv[1]);
 cols = int(sys.argv[2]);
-sequence = [random.randint(1,HIGHEST_TILE_NO) for r in xrange(cols * rows)]
+tiles = int(sys.argv[3]);
+
+sequence = [random.randint(1, tiles) for r in xrange(cols * rows)]
 files = map(lambda x: '../images/tiles/tile-' + str(x) + '.png', sequence)
 
 files = str(files).strip().replace(',', '').replace('\'', '').replace('[', '').replace(']', '');

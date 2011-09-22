@@ -1,6 +1,49 @@
 body {
     margin: 0;
-    background: url('../images/tiles/bg.png') repeat fixed;
+    background: url('../images/tiles/sparse_bg.png') repeat fixed;
     width: 100%;
     height: 100%;
+}
+
+div.link {
+    width: 30px;
+    height: 30px;
+    display: inline;
+    position: fixed;
+}
+
+div.walk-down.blue {
+    background: url('../images/link/blue/walk-down/animated.gif') no-repeat;
+}
+
+div.walk-left.blue {
+    background: url('../images/link/blue/walk-left/animated.gif') no-repeat;
+}
+
+div.walk-right.blue {
+    background: url('../images/link/blue/walk-left/animated.gif') no-repeat;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+div.walk-down.red {
+    background: url('../images/link/red/walk-down/animated.gif') no-repeat;
+}
+
+div.walk-left.red {
+    background: url('../images/link/red/walk-left/animated.gif') no-repeat;
+}
+
+div.walk-right.red {
+    background: url('../images/link/red/walk-left/animated.gif') no-repeat;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
 }
