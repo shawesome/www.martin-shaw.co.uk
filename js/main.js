@@ -11,12 +11,12 @@ var fps = 30;
 // link variables
 var spacing = 30;
 var link_cnt = 0;
-var link_limit = 30;
+var link_limit = 10;
 var move_speed = 1;
 
 // searching
 var perform_search = 30;
-var approach_distance = 300;
+var approach_distance = 100;
 
 
 
@@ -139,10 +139,9 @@ $(function() {
                 var distance = Math.sqrt(dx * dx + dy * dy);
                 
                 if (distance < approach_distance) {
-                    console.log(distance);
                     link.status = 'approaching';
                     link.target = target_links[i];
-                    return;
+                    continue;
                 }
 
             }
@@ -150,15 +149,79 @@ $(function() {
         }
         
         // no one is in range so just keep moving
-        var move = (link.colour == 'blue') ? '+=' + move_speed : '-=' + move_speed;
-        link.object.animate({
-            'left': move,
-        }, fps/1000);
+        var move = (link.colour == 'blue') ? +move_speed : -move_speed;
+        link.object.css('left', link.object.position().left + move + 'px');
+    }
+
+    function change_orientation(link, orientation) {
+        if (orientation != link.orientation) {
+            link.object.removeClass(link.action + '-' + link.orientation)
+                .addClass(link.action + '-' + orientation);
+            
+            link.orientation = orientation;
+        }
     }
 
 
     function approach(link) {
+        var x1 = link.object.position().left + link.object.width() / 2;
+        var y1 = link.object.position().top + link.object.height() / 2;
+
+        var x2 = link.target.object.position().left + link.target.object.width() / 2;
+        var y2 = link.target.object.position().top + link.target.object.height() / 2;
         
+
+        var y_move = 0;
+        if (y1 - move_speed > y2) { 
+            y_move = -move_speed; 
+        } else if (y1 + move_speed < y2) { 
+            y_move = move_speed; 
+        }
+
+        var x_move = 0;
+        if (x1 - move_speed > x2 + 30) { 
+            x_move = -move_speed; 
+        } else if (x1 + move_speed < x2 - 30) { 
+            x_move = move_speed; 
+        }
+
+        var orientation;
+        if (y_move != 0) {
+            link.object.css('top', link.object.position().top + y_move + 'px');
+            link.object.css('z-index', link.object.position().top + y_move + 'px');
+            orientation = (y_move == 1) ? 'down' : 'up';
+        } else {
+            if (x_move != 0) {
+                link.object.css('left', link.object.position().left + x_move + 'px');
+                orientation = (x_move == 1) ? 'right' : 'left';
+            } else {
+                fight(link, link.target);
+                return;
+            }
+        }
+        change_orientation(link, orientation)
+
+    }
+    
+    function fight(fighter1, fighter2) {
+        var rand = Math.random();
+        if (rand > 0.5) {
+            fighter1.status = 'dying';
+            fighter2.status = 'slaying';
+        } else {
+            fighter1.status = 'slaying';
+            fighter2.status = 'dying';
+        }
+
+
+        //var rand = Math.random();
+        //fighter1.status = 'searching';
+        //fighter2.status = 'searching';
+        //if (rand > 0.5) {
+        //    fighter2.object.css('left', (fighter2.colour == 'blue') ? -30 : document.width);
+        //} else {
+        //    fighter1.object.css('left', (fighter1.colour == 'blue') ? -30 : document.width);
+        //}
     }
 
 });
